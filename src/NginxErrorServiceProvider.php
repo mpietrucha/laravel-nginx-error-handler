@@ -10,13 +10,11 @@ class NginxErrorServiceProvider extends Provider
 {
     public function boot(): void
     {
-        $this->publishes([
-            __DIR__.'/../views' => Assets\View::create()->default()
-        ], 'views');
+        $this->publishes(Assets\View::publish(), 'views');
 
-        $this->publishes([
-            __DIR__.'/../resources' => Assets\Resource::create()->default()
-        ], 'resources');
+        $this->publishes(Assets\Resource::publish(), 'resources');
+
+        $this->publishes(Assets\Output::publish(), 'output');
 
         $this->publishes([
             __DIR__.'/../config/nginx.php' => config_path('nginx.php'),

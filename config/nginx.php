@@ -14,5 +14,7 @@ return [
         'logo' => env('NGINX_ERROR_LOGO'),
     ],
 
+    'header' => env('NGINX_ERROR_REQUEST_ID_HEADER', 'X-Request-Id'),
+
     'handlers' => []
 ];

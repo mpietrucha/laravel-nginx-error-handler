@@ -2,6 +2,7 @@
 
 namespace Mpietrucha\Nginx\Error;
 
+use Mpietrucha\Nginx\Error\Factory\Output;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,11 +12,15 @@ class Interceptor
 
     public static function enable(Response $response): void
     {
-        if (! $requestId = $response->headers->get('X-Request-Id')) {
+        if (! $requestId = $response->headers->get(config('nginx.header'))) {
             return;
         }
 
-        Output::create($requestId, $response->getContent());
+        if (! $response = $response->getContent()) {
+            return;
+        }
+
+        Output::create($requestId, $response)->enshure();
 
         self::$canProcessDisable = true;
     }
@@ -27,5 +32,7 @@ class Interceptor
         }
 
         self::$canProcessDisable = false;
+
+        Output::create()->clear();
     }
 }
