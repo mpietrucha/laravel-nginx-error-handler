@@ -8,7 +8,7 @@ class Output extends Asset
 {
     public function to(): string
     {
-        return config('nginx.output');
+        return config('nginx.directories.output');
     }
 
     public function from(): string

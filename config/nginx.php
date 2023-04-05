@@ -1,22 +1,26 @@
 <?php
 
 return [
-    'views' => env('NGINX_VIEWS_OUTPUT', 'resources/vendor/nginx/views'),
+    'directories' => [
+        'views' => env('NGINX_ERROR_VIEWS_OUTPUT', 'resources/vendor/nginx/views'),
 
-    'resources' => env('NGINX_RESOURCES_OUTPUT', 'resources/vendor/nginx/resources'),
+        'resources' => env('NGINX_ERROR_RESOURCES_OUTPUT', 'resources/vendor/nginx/resources'),
 
-    'output' => env('NGINX_RENDER_OUTPUT', 'resources/vendor/nginx/output'),
+        'output' => env('NGINX_ERROR_RENDER_OUTPUT', 'resources/vendor/nginx/output'),
+    ],
 
-    'default' => env('NGINX_DEFAULT_FILE', 'error.html'),
-
-    'loading' => explode(',', env('NGINX_LOADING_STATUSES', 502)),
+    'view' => [
+        'default' => env('NGINX_ERROR_DEFAULT_FILE', 'error.html'),
+        'handlers' => []
+    ],
 
     'theme' => [
+        'loading' => explode(',', env('NGINX_ERROR_LOADING_STATUSES', 502)),
         'favicon' => env('NGINX_ERROR_FAVICON'),
         'logo' => env('NGINX_ERROR_LOGO'),
     ],
 
-    'header' => env('NGINX_ERROR_REQUEST_ID_HEADER', 'X-Request-Id'),
-
-    'handlers' => []
+    'request' => [
+        'header' => env('NGINX_ERROR_REQUEST_ID_HEADER', 'X-Request-Id'),
+    ]
 ];

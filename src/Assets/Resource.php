@@ -8,7 +8,7 @@ class Resource extends Asset
 {
     public function to(): string
     {
-        return config('nginx.resources');
+        return config('nginx.directories.resources');
     }
 
     public function from(): string

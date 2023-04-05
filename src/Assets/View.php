@@ -8,7 +8,7 @@ class View extends Asset
 {
     public function to(): string
     {
-        return config('nginx.views');
+        return config('nginx.directories.views');
     }
 
     public function from(): string

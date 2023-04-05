@@ -12,7 +12,11 @@ class Interceptor
 
     public static function enable(Response $response): void
     {
-        if (! $requestId = $response->headers->get(config('nginx.header'))) {
+        if (! $header = config('nginx.request.header')) {
+            return;
+        }
+
+        if (! $requestId = $response->headers->get($header)) {
             return;
         }
 
