@@ -5,6 +5,7 @@ namespace Mpietrucha\Nginx\Error;
 use Mpietrucha\Nginx\Error\Disk\Interceptor as Disk;
 use Mpietrucha\Support\Concerns\HasFactory;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Symfony\Component\Finder\SplFileInfo;
@@ -16,7 +17,7 @@ class Interceptor
 
     protected ?FilesystemAdapter $disk = null;
 
-    public function __construct(protected Response $response)
+    public function __construct(protected Request $request, protected Response $response)
     {
         $this->handle();
     }
@@ -43,7 +44,7 @@ class Interceptor
             return null;
         }
 
-        if (! $requestId = $this->response->headers->get($header)) {
+        if (! $requestId = $this->request->headers->get($header)) {
             return null;
         }
 
