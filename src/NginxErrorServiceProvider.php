@@ -24,7 +24,5 @@ class NginxErrorServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'./../config/nginx.php', 'nginx');
-
-        $this->app->before(fn () => Interceptor::disable());
     }
 }
