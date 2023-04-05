@@ -17,7 +17,7 @@ abstract class Asset implements AssetInterface
 
     public static function publish(): array
     {
-        $instance = self::create();
+        $instance = static::create();
 
         return [$instance->internal() => $instance->external()];
     }
