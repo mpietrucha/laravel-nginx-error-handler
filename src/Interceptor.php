@@ -2,41 +2,71 @@
 
 namespace Mpietrucha\Nginx\Error;
 
-use Mpietrucha\Nginx\Error\Factory\Output;
-use Symfony\Component\Finder\SplFileInfo;
+use Mpietrucha\Nginx\Error\Disk\Interceptor as Disk;
+use Mpietrucha\Support\Concerns\HasFactory;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\File;
+use Illuminate\Filesystem\FilesystemAdapter;
+use Symfony\Component\Finder\SplFileInfo;
+use Carbon\Carbon;
 
 class Interceptor
 {
-    protected bool $canProcessDisable = false;
+    use HasFactory;
 
-    public static function enable(Response $response): void
+    protected ?FilesystemAdapter $disk = null;
+
+    public function __construct(protected Response $response)
+    {
+        $this->handle();
+    }
+
+    protected function handle(): void
+    {
+        $this->clear();
+
+        if (! $error = $this->intercepting()) {
+            return;
+        }
+
+        $this->disk()->put(...$error);
+    }
+
+    protected function disk(): FilesystemAdapter
+    {
+        return $this->disk ??= Disk::create()->adapter();
+    }
+
+    protected function intercepting(): ?array
     {
         if (! $header = config('nginx.request.header')) {
-            return;
+            return null;
         }
 
         if (! $requestId = $response->headers->get($header)) {
-            return;
+            return null;
         }
 
-        if (! $response = $response->getContent()) {
-            return;
+        if (! $content = $response->getContent()) {
+            return null;
         }
 
-        Output::create($requestId, $response)->enshure();
-
-        self::$canProcessDisable = true;
+        return [$requestId, $content];
     }
 
-    public static function disable(): void
+    protected function clear(): void
     {
-        if (! self::$canProcessDisable) {
-            return;
-        }
+        $queue = $this->disk()->collectAllFiles()->filter($this->shouldDeleteInterceptor(...));
 
-        self::$canProcessDisable = false;
+        $queue->each(fn (SplFileInfo $file) => File::delete($file->getRealPath()));
+    }
 
-        Output::create()->clear();
+    protected function shouldDeleteInterceptor(SplFileInfo $file): bool
+    {
+        $minutes = config('nginx.interceptors.lifetime');
+
+        $fileLastAccessTime = Carbon::createFromTimestamp($file->getATime());
+
+        return $fileLastAccessTime->addMinutes($minutes)->isAfter(Carbon::now());
     }
 }

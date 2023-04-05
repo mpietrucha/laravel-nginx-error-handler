@@ -1,26 +1,16 @@
 <?php
 
 return [
-    'directories' => [
-        'views' => env('NGINX_ERROR_VIEWS_OUTPUT', 'resources/vendor/nginx/views'),
-
-        'resources' => env('NGINX_ERROR_RESOURCES_OUTPUT', 'resources/vendor/nginx/resources'),
-
-        'output' => env('NGINX_ERROR_RENDER_OUTPUT', 'resources/vendor/nginx/output'),
+    'disk' => [
+        'interceptors' => env('NGINX_ERROR_DISK', 'app/nginx/interceptors'),
+        'errors' => env('NGINX_ERROR_PAGES', 'app/nginx/errors')
     ],
 
-    'view' => [
-        'default' => env('NGINX_ERROR_DEFAULT_FILE', 'error.html'),
-        'handlers' => []
-    ],
-
-    'theme' => [
-        'loading' => explode(',', env('NGINX_ERROR_LOADING_STATUSES', 502)),
-        'favicon' => env('NGINX_ERROR_FAVICON'),
-        'logo' => env('NGINX_ERROR_LOGO'),
+    'interceptors' => [
+        'lifetime' => env('NGINX_ERROR_INTERCEPTOR_LIFETIME', 10)
     ],
 
     'request' => [
-        'header' => env('NGINX_ERROR_REQUEST_ID_HEADER', 'X-Request-Id'),
+        'header' => env('NGINX_ERROR_REQUEST_ID_HEADER', 'X-Request-Id')
     ]
 ];
