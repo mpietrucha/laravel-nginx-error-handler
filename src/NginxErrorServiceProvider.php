@@ -5,8 +5,9 @@ namespace Mpietrucha\Nginx\Error;
 use Mpietrucha\Nginx\Error\Assets;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\ServiceProvider;
 
-class NginxErrorServiceProvider extends Provider
+class NginxErrorServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
