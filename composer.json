@@ -29,7 +29,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mpietrucha\\Nginx\\Error\\NginxErrorProvider"
+                "Mpietrucha\\Nginx\\Error\\NginxErrorServiceProvider"
             ]
         }
     }
