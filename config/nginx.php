@@ -5,6 +5,8 @@ return [
 
     'resources' => env('NGINX_RESOURCES_OUTPUT', 'resources/vendor/nginx/resources'),
 
+    'output' => env('NGINX_RENDER_OUTPUT', 'resources/vendor/nginx/output'),
+
     'default' => env('NGINX_DEFAULT_FILE', 'error.html'),
 
     'loading' => explode(',', env('NGINX_LOADING_STATUSES', 502)),
