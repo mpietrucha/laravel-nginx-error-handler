@@ -9,5 +9,5 @@ interface DiskInterface
 {
     public function path(): string;
 
-    public function before(SplFileInfo $file): string
+    public function before(SplFileInfo $file): string;
 }
