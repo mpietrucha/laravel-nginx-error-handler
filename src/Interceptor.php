@@ -43,11 +43,11 @@ class Interceptor
             return null;
         }
 
-        if (! $requestId = $response->headers->get($header)) {
+        if (! $requestId = $this->response->headers->get($header)) {
             return null;
         }
 
-        if (! $content = $response->getContent()) {
+        if (! $content = $this->response->getContent()) {
             return null;
         }
 
