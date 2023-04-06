@@ -2,6 +2,7 @@
 
 namespace Mpietrucha\Nginx\Error\Factory;
 
+use Closure;
 use Mpietrucha\Nginx\Error\Contracts\BuilderInterface;
 
 abstract class Builder implements BuilderInterface
