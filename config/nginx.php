@@ -3,7 +3,7 @@
 use Symfony\Component\HttpFoundation\Response;
 
 return [
-    'handles' => [
+    'errors' => [
         ...collect(Response::$statusTexts)->keys()->filter(fn (int $status) => $status >= 400),
     ],
 
