@@ -12,8 +12,8 @@ class View extends Disk
 
     public function adapter(): FilesystemAdapter
     {
-        return $this->build(
-            resource_path(self::DIRECTORY), true
+        return $this->buildAbsoluteAdapter(
+            resource_path(self::DIRECTORY)
         );
     }
 }

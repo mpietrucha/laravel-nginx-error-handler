@@ -9,7 +9,7 @@ class Interceptor extends Disk
 {
     public function adapter(): FilesystemAdapter
     {
-        return $this->build(
+        return $this->buildAdapter(
             config('nginx.disk.interceptors')
         );
     }

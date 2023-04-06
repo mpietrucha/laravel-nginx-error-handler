@@ -15,8 +15,8 @@ class Nginx extends Disk
 
     public function adapter(): FilesystemAdapter
     {
-        return $this->build(
-            $this->vendor()->path() . self::DIRECTORY, true
+        return $this->buildAbsoluteAdapter(
+            $this->vendor()->path() . self::DIRECTORY
         );
     }
 }
