@@ -17,13 +17,13 @@ class InstallCommand extends Command
     public function handle(): void
     {
         $this->components->task('Building nginx configuration.', function () {
-            Nginx::build(new NginxBuilder);
+            Nginx::create()->build(new NginxBuilder);
 
             return true;
         });
 
         $this->components->task('Generating default errors files.', function () {
-            Error::build(new ErrorBuilder);
+            Error::create()->build(new ErrorBuilder);
 
             return true;
         });
