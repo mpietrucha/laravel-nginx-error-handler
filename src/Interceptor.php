@@ -7,15 +7,12 @@ use Mpietrucha\Support\Concerns\HasFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Filesystem\FilesystemAdapter;
 use Symfony\Component\Finder\SplFileInfo;
 use Carbon\Carbon;
 
 class Interceptor
 {
     use HasFactory;
-
-    protected ?FilesystemAdapter $disk = null;
 
     public function __construct(protected Request $request, protected Response $response)
     {
@@ -30,12 +27,7 @@ class Interceptor
             return;
         }
 
-        $this->disk()->put(...$error);
-    }
-
-    protected function disk(): FilesystemAdapter
-    {
-        return $this->disk ??= Disk::create()->adapter();
+        Disk::create()->put(...$error);
     }
 
     protected function intercepting(): ?array
@@ -57,7 +49,7 @@ class Interceptor
 
     protected function clear(): void
     {
-        $queue = $this->disk()->collectAllFiles()->filter($this->shouldDeleteInterceptor(...));
+        $queue = Disk::create()->adapter()->collectAllFiles()->filter($this->shouldDeleteInterceptor(...));
 
         $queue->each(fn (SplFileInfo $file) => File::delete($file->getRealPath()));
     }

@@ -2,27 +2,30 @@
 
 namespace Mpietrucha\Nginx\Error\Factory;
 
-use Mpietrucha\Nginx\Error\Contracts\DiskInterface;
-use Symfony\Component\Finder\SplFileInfo;
-use Mpietrucha\Support\Concerns\HasFactory;
-use Mpietrucha\Minify\Minify;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\FilesystemAdapter;
+use Mpietrucha\Nginx\Error\Contracts\BuilderInterface;
+use Mpietrucha\Support\Condition;
 
 abstract class Disk implements DiskInterface
 {
-    use HasFactory;
-
-    public function adapter(): FilesystemAdapter
+    protected function build(string $root, bool $absolute = false): FilesystemAdapter
     {
         return Storage::build([
             'driver' => 'local',
-            'root' => storage_path($this->path())
+            'root' => Condition::create($root)->add(fn () => base_path($root), ! $absolute)->resolve()
         ]);
     }
 
-    public function before(SplFileInfo $file): string
+    public function put(string $name, string $contents): void
     {
-        return Minify::create($file)->minify();
+        $this->adapter()->put($name, $contents);
+    }
+
+    public function build(BuilderInterface $builder): void
+    {
+        $builder->resolver(fn (string $file) => $this->adapter()->path($file))
+            ->collection()
+            ->each(fn (string $contents, string $name) => $this->put($name, $contents));
     }
 }

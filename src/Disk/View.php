@@ -2,15 +2,18 @@
 
 namespace Mpietrucha\Nginx\Error\Disk;
 
+use Illuminate\Support\Facades\File;
 use Mpietrucha\Nginx\Error\Factory\Disk;
 use Illuminate\Filesystem\FilesystemAdapter;
 
-class Error extends Disk
+class View extends Disk
 {
+    protected DIRECTORY = 'views/errors';
+
     public function adapter(): FilesystemAdapter
     {
         return $this->build(
-            config('nginx.disk.errors')
+            resource_path(self::DIRECTORY), true
         );
     }
 }

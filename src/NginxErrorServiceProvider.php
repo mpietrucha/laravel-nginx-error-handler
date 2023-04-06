@@ -3,6 +3,7 @@
 namespace Mpietrucha\Nginx\Error;
 
 use Illuminate\Support\ServiceProvider;
+use Mpietrucha\Nginx\Error\Console\Commands;
 
 class NginxErrorServiceProvider extends ServiceProvider
 {
@@ -11,6 +12,10 @@ class NginxErrorServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/nginx.php' => config_path('nginx.php'),
         ], 'config');
+
+        $this->commands([
+            Commands\InstallCommand::class,
+        ]);
     }
 
     public function register(): void
