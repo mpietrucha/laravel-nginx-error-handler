@@ -2,7 +2,6 @@
 
 namespace Mpietrucha\Nginx\Error\Builder;
 
-use Closure;
 use Illuminate\Support\Collection;
 use Mpietrucha\Nginx\Error\Factory\Builder;
 

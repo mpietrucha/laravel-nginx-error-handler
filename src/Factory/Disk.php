@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Mpietrucha\Nginx\Error\Contracts\BuilderInterface;
 use Mpietrucha\Nginx\Error\Contracts\DiskInterface;
-use Mpietrucha\Support\Condition;
+use Mpietrucha\Support\Concerns\HasFactory;
 
 abstract class Disk implements DiskInterface
 {
+    use HasFactory;
+
     public function put(string $name, string $contents): void
     {
         $this->adapter()->put($name, $contents);
@@ -22,16 +24,18 @@ abstract class Disk implements DiskInterface
             ->each(fn (string $contents, string $name) => $this->put($name, $contents));
     }
 
-    protected function buildAdapter(string $root, bool $absolute = false): FilesystemAdapter
+    protected function buildAbsoluteAdapter(string $root): FilesystemAdapter
     {
         return Storage::build([
             'driver' => 'local',
-            'root' => Condition::create($root)->add(fn () => base_path($root), ! $absolute)->resolve()
+            'root' => $root
         ]);
     }
 
-    protected function buildAbsoluteAdapter(string $root): FilesystemAdapter
+    protected function buildRelativeAdapter(string $root): FilesystemAdapter
     {
-        return $this->buildAdapter($root, true);
+        return $this->buildAbsoluteAdapter(
+            base_path($root)
+        );
     }
 }

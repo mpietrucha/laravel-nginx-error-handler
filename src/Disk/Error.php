@@ -9,7 +9,7 @@ class Error extends Disk
 {
     public function adapter(): FilesystemAdapter
     {
-        return $this->buildAdapter(
+        return $this->buildRelativeAdapter(
             config('nginx.disk.errors')
         );
     }
