@@ -20,7 +20,7 @@ class Nginx extends Builder
 
     protected function build(): string
     {
-        return collect_config('nginx.errors')->each($this->block(...))->prepend(self::INTERCEPT)->toNewLineWords();
+        return collect_config('nginx.errors')->map($this->block(...))->prepend(self::INTERCEPT)->toNewLineWords();
     }
 
     protected function block(int $error): string
