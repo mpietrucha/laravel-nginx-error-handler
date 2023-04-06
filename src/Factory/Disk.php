@@ -5,6 +5,7 @@ namespace Mpietrucha\Nginx\Error\Factory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Mpietrucha\Nginx\Error\Contracts\BuilderInterface;
+use Mpietrucha\Nginx\Error\Contracts\DiskInterface;
 use Mpietrucha\Support\Condition;
 
 abstract class Disk implements DiskInterface
