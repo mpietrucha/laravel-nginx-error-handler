@@ -3,7 +3,7 @@
 namespace Mpietrucha\Nginx\Error;
 
 use Illuminate\Support\ServiceProvider;
-use Mpietrucha\Composer\Composer;
+use Mpietrucha\Events\Component\Event;
 use Illuminate\Support\Facades\Artisan;
 use Mpietrucha\Nginx\Error\Console\Commands;
 
@@ -15,7 +15,7 @@ class NginxErrorServiceProvider extends ServiceProvider
             __DIR__.'/../config/nginx.php' => config_path('nginx.php'),
         ], 'config');
 
-        Composer::after(function () {
+        Event::composer(function () {
             Artisan::call('nginx:install');
         });
 
