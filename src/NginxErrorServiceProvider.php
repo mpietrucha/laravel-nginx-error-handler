@@ -16,8 +16,7 @@ class NginxErrorServiceProvider extends ServiceProvider
         ], 'config');
 
         Event::composer(function () {
-            Artisan::call('cdn:clear');
-            Artisan::call('cdn:install');
+            Artisan::call('nginx:install');
         })->current();
 
         if (! $this->app->runningInConsole()) {
