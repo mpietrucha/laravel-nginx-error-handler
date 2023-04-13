@@ -15,10 +15,10 @@ class NginxErrorServiceProvider extends ServiceProvider
             __DIR__.'/../config/nginx.php' => config_path('nginx.php'),
         ], 'config');
 
-        Event::composer()->current(function () {
+        Event::composer(function () {
             Artisan::call('cdn:clear');
             Artisan::call('cdn:install');
-        });
+        })->current();
 
         if (! $this->app->runningInConsole()) {
             return;
