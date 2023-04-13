@@ -15,7 +15,7 @@ class NginxErrorServiceProvider extends ServiceProvider
             __DIR__.'/../config/nginx.php' => config_path('nginx.php'),
         ], 'config');
 
-        Event::composer()->packageContext()->call(function () {
+        Event::composer()->package(function () {
             Artisan::call('cdn:clear');
             Artisan::call('cdn:install');
         });
