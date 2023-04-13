@@ -17,7 +17,7 @@ class NginxErrorServiceProvider extends ServiceProvider
 
         Event::composer(function () {
             Artisan::call('nginx:install');
-        })->current();
+        })->root();
 
         if (! $this->app->runningInConsole()) {
             return;

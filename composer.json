@@ -21,7 +21,7 @@
     "require": {
         "php": "^8.1",
         "mpietrucha/support": "^1.0",
-        "mpietrucha/php-context-aware-events": "^1.0",
+        "mpietrucha/context-aware-events": "^1.0",
         "symfony/http-foundation": "^6.2",
         "mpietrucha/minify": "^1.0",
         "nesbot/carbon": "^2.66"
