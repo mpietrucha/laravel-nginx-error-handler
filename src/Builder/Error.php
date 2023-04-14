@@ -5,12 +5,14 @@ namespace Mpietrucha\Nginx\Error\Builder;
 use Illuminate\Support\Collection;
 use Mpietrucha\Nginx\Error\Factory\Builder;
 use Symfony\Component\HttpFoundation\Request;
-use Mpietrucha\Support\Vendor;
+use Mpietrucha\Support\Concerns\HasVendor;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Illuminate\Foundation\Exceptions\Handler as DefaultLaravelErrorHandler;
 
 class Error extends Builder
 {
+    use HasVendor;
+
     public function collection(): Collection
     {
         $handler = $this->handler();
@@ -31,7 +33,7 @@ class Error extends Builder
 
     protected function handler(): DefaultLaravelErrorHandler
     {
-        $appErrorHandler = Vendor::app()->namespace('exceptions', 'handler');
+        $appErrorHandler = $this->vendor()->root()->namespace('exceptions', 'handler');
 
         if (! class_exists($appErrorHandler)) {
             return app(DefaultLaravelErrorHandler::class);
