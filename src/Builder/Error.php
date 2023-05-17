@@ -3,7 +3,6 @@
 namespace Mpietrucha\Nginx\Error\Builder;
 
 use Illuminate\Support\Collection;
-use Mpietrucha\Nginx\Error\Factory\Builder;
 use Symfony\Component\HttpFoundation\Request;
 use Mpietrucha\Support\Package;
 use Mpietrucha\Support\Concerns\HasVendor;

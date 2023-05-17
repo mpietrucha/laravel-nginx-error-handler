@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpietrucha\Nginx\Error\Factory;
+namespace Mpietrucha\Nginx\Error\Disk;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\FilesystemAdapter;

@@ -3,7 +3,6 @@
 namespace Mpietrucha\Nginx\Error\Builder;
 
 use Illuminate\Support\Collection;
-use Mpietrucha\Nginx\Error\Factory\Builder;
 
 class Nginx extends Builder
 {

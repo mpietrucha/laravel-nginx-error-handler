@@ -3,7 +3,6 @@
 namespace Mpietrucha\Nginx\Error\Disk;
 
 use Illuminate\Support\Facades\File;
-use Mpietrucha\Nginx\Error\Factory\Disk;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Mpietrucha\Support\Concerns\HasVendor;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpietrucha\Nginx\Error\Factory;
+namespace Mpietrucha\Nginx\Error\Builder;
 
 use Closure;
 use Mpietrucha\Nginx\Error\Contracts\BuilderInterface;
