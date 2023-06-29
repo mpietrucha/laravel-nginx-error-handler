@@ -2,9 +2,9 @@
 
 namespace Mpietrucha\Nginx\Error;
 
+use Mpietrucha\Support\Artisan;
 use Illuminate\Support\ServiceProvider;
 use Mpietrucha\Events\Component\Event;
-use Illuminate\Support\Facades\Artisan;
 use Mpietrucha\Nginx\Error\Console\Commands;
 
 class NginxErrorServiceProvider extends ServiceProvider
